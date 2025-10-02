@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, Delete, NotFoundException } from '@nestjs/common';
 import { TaskService } from './task.service';
-import { Task } from '../task.entity';
+import { Task } from './task.entity';
 
 @Controller('task')
 export class TaskController {
@@ -27,7 +27,11 @@ export class TaskController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<void> {
-    return this.taskService.remove(Number(id));
+  async remove(@Param('id') id: string) {
+    const deleted = await this.taskService.remove(Number(id));
+    if (!deleted) {
+      throw new NotFoundException(`Task with ID ${id} not found`);
+    }
+    return { message: 'Task deleted successfully' };
   }
 }
