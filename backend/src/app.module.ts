@@ -7,17 +7,18 @@ import { Task } from './task/task.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql', // or sqlite/mongodb depende sa db mo
+   TypeOrmModule.forRoot({
+      type: 'mysql',
       host: 'localhost',
       port: 3306,
-      username: 'erishkarl',
-      password: 'erish1024',
+      username: 'root',
+      password: '',
       database: 'todo_db',
       entities: [Task],
       synchronize: true,
     }),
-    TaskModule, // ✅ importante
+
+    TaskModule, 
   ],
   controllers: [AppController],
   providers: [AppService],

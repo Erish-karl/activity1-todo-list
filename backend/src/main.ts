@@ -5,14 +5,12 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // ✅ Allow frontend requests
   app.enableCors({
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:3000', // frontend
   });
 
-  // 🔹 Swagger configuration
   const config = new DocumentBuilder()
-    .setTitle('Todo List API')
+    .setTitle('To-Do List API')
     .setDescription('API documentation for the Todo List backend')
     .setVersion('1.0')
     .build();
@@ -20,7 +18,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document);
 
-  // 🔹 Start the server
   await app.listen(4000);
   console.log('✅ Backend running at http://localhost:4000');
   console.log('📘 Swagger Docs available at http://localhost:4000/api-docs');

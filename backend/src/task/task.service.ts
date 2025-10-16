@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Repository, DeleteResult } from 'typeorm'; // Import DeleteResult
+import { Repository, DeleteResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './task.entity';
 
@@ -31,7 +31,7 @@ export class TaskService {
   }
 
   async remove(id: number): Promise<boolean> {
-    const result: DeleteResult = await this.taskRepository.delete(id); // DeleteResult type
-    return (result.affected ?? 0) > 0; // safe check kung undefined
+    const result: DeleteResult = await this.taskRepository.delete(id); 
+    return (result.affected ?? 0) > 0; 
   }
 }
